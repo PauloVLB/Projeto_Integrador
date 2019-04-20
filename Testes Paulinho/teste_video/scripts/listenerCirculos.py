@@ -9,12 +9,15 @@ from std_msgs.msg import Float64MultiArray
 from teste_video.msg import Circulo, Circulos
 
 def circular(img, circles):
-	pt1 = (img.shape[1]/2, img.shape[0])
-	pt2 = (img.shape[1]/2, 0)
+	largura = img.shape[1]
+	altura = img.shape[0]
+
+	pt1 = (largura/2, altura)
+	pt2 = (largura/2, 0)
 	cv2.line(img, pt1, pt2, (0,255,0), 1)
 
-	pt1 = (img.shape[1], img.shape[0]/2)
-	pt2 = (0, img.shape[0]/2)
+	pt1 = (largura, altura/2)
+	pt2 = (0, altura/2)
 	cv2.line(img, pt1, pt2, (0,255,0), 1)		
 
 
@@ -31,8 +34,8 @@ def circular(img, circles):
 
 			org = (x - raio, y - raio)
 
-			x = (x+(img.shape[1]/2)*-1)
-			y = ((img.shape[0]/2)-y)
+			x = ((largura/2)-x)*-1
+			y = ((altura/2)-y)
 
 			text = '%s: (%s,%s)'%(str(index), x, y)
 			cv2.putText(img, text, org, cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
@@ -77,11 +80,7 @@ def listenerImg():
 
 if __name__ == "__main__":
 	pub = rospy.Publisher('coordenadas_circulos', Circulo, queue_size=10)
-	
-	#arrayCoordenadas = Float64MultiArray()
-	#arrayCoordenadas.data = [0,0,0]
 
 	circulo = Circulo()
-	circulos = Circulos()
 	
 	listenerImg()
