@@ -11,7 +11,7 @@ arqCasc = '/home/isaac/opencv/data/haarcascades/mod/closed_frontal_palm.xml'
 width = 400
 height = 400
 
-faceCascade = cv2.CascadeClassifier(arqCasc)
+handCascade = cv2.CascadeClassifier(arqCasc)
 
 detectedAlready = False
     
@@ -21,9 +21,9 @@ def callback(data):
 
 	imagem = bridge.imgmsg_to_cv2(data) # conversao de data img
 
-	faces = faceCascade.detectMultiScale(
+	hands = handCascade.detectMultiScale(
 	imagem,
-		minNeighbors= 15,
+		minNeighbors= 30,
 		minSize=(30, 30),
 		maxSize=(200,200)
 	)
@@ -36,17 +36,16 @@ def callback(data):
 	centroReduzido = 0 # publica entre 0 e 127 (int8)
 
 	# Desenha um retangulo nas deteccoes
-	for (x, y, w, h) in faces:
+	for (x, y, w, h) in hands:
 
 		hasDetected = True
 
 		centroReal = x + (w/2)
 		centroReduzido = (127 * centroReal)/400
 
-		cv2.rectangle(imagem, (x, y), (x+w, y+h), (0, 0, 0), 5)
+		cv2.rectangle(imagem, (x, y), (x+w, y+h), (0, 255, 0), 5)
 		cv2.putText(imagem, "",(x - 100, y), cv2.FONT_HERSHEY_PLAIN, 5, (0, 255, 0))
 
-	
 	if (hasDetected):
 		'''
 		infoPub = (centroReal, centroReduzido)
