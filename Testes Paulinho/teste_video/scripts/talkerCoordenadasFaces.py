@@ -8,17 +8,19 @@ from identificador import Detect
 
 def callback(data):
 	identificador = Detect(data)
-		
 	detectados = identificador.elementos_face('lbpcascades/lbpcascade_frontalface.xml')
-	
-	if (detectados is not None):
-		for (x,y,w,h) in detectados:
-			arrayCoordenadas.data[0] = x
-			arrayCoordenadas.data[1] = y
-			arrayCoordenadas.data[2] = w
-			arrayCoordenadas.data[3] = h
 
-			publicarCoordenadas(arrayCoordenadas)
+
+	for (x,y,w,h) in detectados:
+		arrayCoordenadasAnt.data = arrayCoordenadas.data
+
+		arrayCoordenadas.data[0] = x
+		arrayCoordenadas.data[1] = y
+		arrayCoordenadas.data[2] = w
+		arrayCoordenadas.data[3] = h
+
+	if (arrayCoordenadas.data is not None):
+		publicarCoordenadas(arrayCoordenadas)
 	else:
 		publicarCoordenadas(arrayCoordenadasAnt)
 
@@ -37,7 +39,8 @@ def listenerImg():
 if __name__ == "__main__":
 	arrayCoordenadas = Float64MultiArray()
 	arrayCoordenadas.data = [0,0,0,0]
-	
+
 	arrayCoordenadasAnt = Float64MultiArray()
 	arrayCoordenadasAnt.data = [0,0,0,0]
+
 	listenerImg()

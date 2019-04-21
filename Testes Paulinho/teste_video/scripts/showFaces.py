@@ -4,7 +4,7 @@ import cv2
 from std_msgs.msg import Float64MultiArray
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from identificador import Draw
+from draw import Draw
 
 def callbackCoordenadas(data):
 	arrayCoordenadas.data = data.data
