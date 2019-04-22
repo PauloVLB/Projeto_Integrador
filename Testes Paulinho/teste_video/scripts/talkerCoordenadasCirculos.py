@@ -18,7 +18,7 @@ def circular(img, circles):
 	linha.vertical(img)
 
 	if (circles is not None):
-		circles = np.uint16(np.around(circles))
+		circles = np.int0(np.around(circles))
 		index = 1
 		for i in circles[0, :]:
 			circulo.x = i[0]
