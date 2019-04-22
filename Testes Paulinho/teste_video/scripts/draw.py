@@ -8,22 +8,6 @@ class DrawCircles():
         self.color = color
         self.thick = thick
 
-	def draw(self, img, objeto):
-		for (x,y,w,h) in objeto:
-			cv2.circle(img, (x+(w/2), y+(h/2)), (w/2), self.color, self.thick)
-
-		return img
-
-	def draw(self, img, arrayCoordenadas):
-		x = int(arrayCoordenadas[0])
-		y = int(arrayCoordenadas[1])
-		w = int(arrayCoordenadas[2])
-		h = int(arrayCoordenadas[3])
-
-		cv2.circle(img, (x+(w/2), y+(h/2)), (w/2), self.color, self.thick)
-
-		return img
-
     def draw(self, img, circle):
         center = (circle.x, circle.y)
         radius = 1 if self.isCenter else circle.raio
@@ -31,6 +15,20 @@ class DrawCircles():
         cv2.circle(img, center, radius, self.color, self.thick)
 
         return img
+
+class DrawFaces():
+    def __init__(self, color=(0,255,0), thick=3, isCenter=False):
+        self.color = color
+        self.thick = thick
+        self.isCenter = isCenter
+
+    def draw(self, img, arrayCoordenadas):
+		x = int(arrayCoordenadas[0])
+		y = int(arrayCoordenadas[1])
+		w = int(arrayCoordenadas[2])
+		h = int(arrayCoordenadas[3])
+
+		return cv2.circle(img, (x+(w/2), y+(h/2)), (w/2), self.color, self.thick);
 
 class DrawLines():
     def __init__(self, color=(0,255,0), thick=1):

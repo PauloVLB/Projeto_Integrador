@@ -8,7 +8,7 @@ from cv_bridge import CvBridge
 def talkerImg():
 	pub = rospy.Publisher('topico_img', Image, queue_size=10)
 	rospy.init_node('talkerImg', anonymous=True)
-	rate = rospy.Rate(10)
+	rate = rospy.Rate(20)
 
 	ponte = CvBridge()
 	camera = cv2.VideoCapture(0)
