@@ -5,7 +5,7 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import Int8
 from cv_bridge import CvBridge, CvBridgeError # usado para conversao data img
 
-arqCasc = '/home/isaac/opencv/data/haarcascades/mod/closed_frontal_palm.xml'
+arqCasc = '/home/paulo/Opencv/haarcascade/closed_frontal_palm.xml'
 
 # resolucao
 width = 400
@@ -14,7 +14,7 @@ height = 400
 handCascade = cv2.CascadeClassifier(arqCasc)
 
 detectedAlready = False
-
+    
 def callback(data):
 
 	bridge = CvBridge()
@@ -55,7 +55,7 @@ def callback(data):
 		pub.publish(centroReduzido) # so publica valor reduzido
 		'''
 		infoPub = (centroReal, centroReduzido)
-
+		
 		if (centroReal < width/2):
 
 			print("Real/Pub (ESQ): ", infoPub)

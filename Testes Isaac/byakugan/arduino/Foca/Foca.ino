@@ -6,7 +6,6 @@ Servo servoEsq, servoDir;
 #define PIN_SERVO_DIR 7
 
 // ros comunication
-#include <robo_hardware2.h>
 #include <ros.h>
 #include <std_msgs/Int8.h>
 
@@ -15,7 +14,7 @@ Servo servoEsq, servoDir;
 ros::NodeHandle nh;
 
 void messageCb(const std_msgs::Int8& msg) {
-	
+
 	int valorLido = msg.data;
 
 	if (valorLido > 63) {
@@ -24,7 +23,7 @@ void messageCb(const std_msgs::Int8& msg) {
 	} else {
 		int valor = map(valorLido, 0, 63, 0, 180);
 		servoEsq.write(valor);
-	} 
+	}
 
 }
 
