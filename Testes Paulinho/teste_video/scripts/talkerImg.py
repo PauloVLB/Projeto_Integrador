@@ -11,7 +11,7 @@ def talkerImg():
 	rate = rospy.Rate(20)
 
 	ponte = CvBridge()
-	camera = cv2.VideoCapture(0)
+	camera = cv2.VideoCapture(1)
 	rval = True
 
 	while rval and not rospy.is_shutdown():

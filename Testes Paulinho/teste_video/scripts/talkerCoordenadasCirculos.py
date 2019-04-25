@@ -14,8 +14,8 @@ def translate(circulo, img):
 	circulo.y = ((img.shape[0]/2)-circulo.y)
 
 def circular(img, circles):
-	linha.horizontal(img)
-	linha.vertical(img)
+	cartesiano.horizontal(img)
+	cartesiano.vertical(img)
 
 	if (circles is not None):
 		circles = np.int0(np.around(circles))
@@ -29,6 +29,12 @@ def circular(img, circles):
 
 			circuloBorda.draw(img, circulo) #borda
 			circuloCentro.draw(img, circulo) #centro
+			pt1 = ((circulo.x + circulo.raio),0)
+			pt2 = ((circulo.x + circulo.raio),img.shape[0])
+			linha.line(img, pt1, pt2)
+			pt1 = ((circulo.x - circulo.raio),0)
+			pt2 = ((circulo.x - circulo.raio),img.shape[0])
+			linha.line(img, pt1, pt2)
 			texto.onCircles(img, circulo) #texto acima
 
 			translate(circulo, img)
@@ -41,7 +47,7 @@ def acharCirculos(img):
 	cinza = cv2.cvtColor(copiaImg, cv2.COLOR_BGR2GRAY)
 	cinza = cv2.medianBlur(cinza, 5)
 	rows = cinza.shape[1]
- 	circles = cv2.HoughCircles(cinza, cv2.HOUGH_GRADIENT, 0.00001, rows/8,
+ 	circles = cv2.HoughCircles(cinza, cv2.HOUGH_GRADIENT, 1.2, rows/8,
  		param1=100, param2=30, minRadius=10, maxRadius=100)
 
 	copiaImg = circular(copiaImg, circles)
@@ -71,7 +77,8 @@ if __name__ == "__main__":
 
 	circuloBorda = DrawCircles((255,0,255), 3)
 	circuloCentro = DrawCircles((0,100,100),3, True)
-	linha = DrawLines()
+	cartesiano = DrawLines()
+	linha = DrawLines((255,0,0), 2)
 	texto = Write(True)
 
 	listenerImg()
