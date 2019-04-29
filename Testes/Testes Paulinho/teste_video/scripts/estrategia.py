@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
+import message_filters
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Int32MultiArray
 
@@ -16,10 +17,15 @@ def sensoresCorCb(data):
 
 def hardwareListener():
     rospy.init_node('estrategia', anonymous=True)
+    
+    subSensorCor = message_filters.Subscriber('sensores_cor_topic', Float32MultiArray)
+    subSensorCor.registerCallback(sensoresCorCb)
 
-    rospy.Subscriber('relfetancia_topic', Float32MultiArray, refletanciaCb)
-    rospy.Subscriber('sonares_topic', Float32MultiArray, sonaresCb)
-    rospy.Subscriber('sensores_cor_topic', Float32MultiArray, sensoresCorCb)
+    subRefle = message_filters.Subscriber('refletancia_topic', Float32MultiArray)
+    subRefle.registerCallback(refletanciaCb)
+    
+    subSonar = message_filters.Subscriber('sonares_topic', Float32MultiArray)
+    subRefle.registerCallback(sonaresCb)
 
     pubMotores = rospy.Publisher('motores_topic', Int32MultiArray, queue_size=10)
     rate = rospy.Rate(20)

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import cv2
+import message_filters
 from std_msgs.msg import Float64MultiArray
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
@@ -21,8 +22,13 @@ def callbackImg(data):
 
 def listenerCoordenadas():
 	rospy.init_node('showFaces', anonymous=True)
-	rospy.Subscriber('coordenadas_detectadas', Float64MultiArray, callbackCoordenadas)
-	rospy.Subscriber('topico_img', Image, callbackImg)
+	
+	subCoordenadas = message_filters.Subscriber('coordenadas_detectadas', Float64MultiArray)
+	subCoordenadas.registerCallback(callbackCoordenadas)
+	
+	subImg = message_filters.Subscriber('topico_img', Image)
+	subImg.registerCallback(callbackImg)
+
 	rospy.spin()
 
 if __name__ == '__main__':
