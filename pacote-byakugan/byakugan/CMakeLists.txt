@@ -8,7 +8,6 @@ project(byakugan)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv2
   rospy
 )
 
@@ -104,7 +103,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES byakugan
-#  CATKIN_DEPENDS cv2 rospy
+#  CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
 )
 
