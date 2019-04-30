@@ -43,7 +43,7 @@ def callback(data):
 
 		centroReduzido = (127 * centroReal)/400
 
-		cv2.rectangle(imagem, (x, y), (x+w, y+h), (0, 0, 0), 5)
+		cv2.rectangle(imagem, (x, y), (x+w, y+h), (0, 255, 0), 5)
 		cv2.putText(imagem, "",(x - 100, y), cv2.FONT_HERSHEY_PLAIN, 5, (0, 255, 0))
 
 	
@@ -67,7 +67,6 @@ def callback(data):
 
 			pub.publish(centroReduzido)
 
-	imagem = cv2.flip(imagem, 180)
 
 	cv2.imshow('imagemLida', imagem) #mostra a imagem captura na janela
 
