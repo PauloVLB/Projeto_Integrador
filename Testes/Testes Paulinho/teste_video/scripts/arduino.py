@@ -2,7 +2,7 @@
 
 import rospy
 import random
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float64MultiArray
 from std_msgs.msg import Int32MultiArray
 
 def motoresCb(vel):
@@ -11,12 +11,12 @@ def motoresCb(vel):
 def hardwareTalker():
     rospy.init_node('arudino', anonymous=True)
 
-    pubRefletancia = rospy.Publisher('refletancia_topic', Float32MultiArray, queue_size=10)
-    pubSonares = rospy.Publisher('sonares_topic', Float32MultiArray, queue_size=10)
-    pubSensoresCor = rospy.Publisher('sensores_cor_topic', Float32MultiArray, queue_size=10)
+    pubRefletancia = rospy.Publisher('refletancia', Float64MultiArray, queue_size=10)
+    pubSonares = rospy.Publisher('sonares', Float64MultiArray, queue_size=10)
+    pubSensoresCor = rospy.Publisher('cor', Float64MultiArray, queue_size=10)
     rate = rospy.Rate(20)
 
-    rospy.Subscriber('motores_topic', Int32MultiArray, motoresCb)
+    rospy.Subscriber('motores', Int32MultiArray, motoresCb)
 
     while not rospy.is_shutdown():
         dataRefletancia = Float32MultiArray()
