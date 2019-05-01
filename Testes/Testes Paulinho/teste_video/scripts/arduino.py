@@ -19,9 +19,9 @@ def hardwareTalker():
     rospy.Subscriber('motores', Int32MultiArray, motoresCb)
 
     while not rospy.is_shutdown():
-        dataRefletancia = Float32MultiArray()
-        dataSonares = Float32MultiArray()
-        dataSensoresCor = Float32MultiArray()
+        dataRefletancia = Float64MultiArray()
+        dataSonares = Float64MultiArray()
+        dataSensoresCor = Float64MultiArray()
 
         dataRefletancia.data = [random.randint(1, 15),23,23,21]
         dataSonares.data = [random.randint(1, 40),12,5]

@@ -10,10 +10,10 @@ ros::Publisher pubRefletancia("refletancia", &dataRefletancia);
 
 std_msgs::Float64MultiArray dataSonares;
 ros::Publisher pubSonares("sonares", &dataSonares);
-
+/*
 std_msgs::Float64MultiArray dataSensoresCor;
 ros::Publisher pubSensoresCor("cor", &dataSensoresCor);
-
+*/
 void motoresCb(std_msgs::Int32MultiArray motores){
   robo.acionarMotores(motores.data[0], motores.data[1]);
 }
@@ -26,20 +26,20 @@ void setup() {
   
   dataSonares.data_length = 3;
   dataSonares.data =  (float*)malloc(sizeof(float)*3);
-
+  /*
   dataSensoresCor.data_length = 3;
   dataSensoresCor.data = (float*)malloc(sizeof(float)*3);
-  
+  */
   nh.initNode();
   nh.subscribe(sub);
 
   nh.advertise(pubRefletancia);
   nh.advertise(pubSonares);
-  nh.advertise(pubSensoresCor);
+  //nh.advertise(pubSensoresCor);
   
   robo.configurar(false);
 
-  robo.habilitaTCS34();
+  //robo.habilitaTCS34();
 }
 
 long t;
@@ -52,15 +52,15 @@ void loop() {
   dataSonares.data[0] = robo.lerSensorSonarFrontal();
   dataSonares.data[1] = robo.lerSensorSonarDir();
   dataSonares.data[2] = robo.lerSensorSonarEsq();
-
+  /*
   dataSensoresCor.data[0] = robo.getHSVEsquerdo().h;
   dataSensoresCor.data[1] = robo.getHSVEsquerdo().s;
   dataSensoresCor.data[2] = robo.getHSVEsquerdo().v;
-  
+  */
   
   pubRefletancia.publish(&dataRefletancia);
   pubSonares.publish(&dataSonares);
-  pubSensoresCor.publish(&dataSensoresCor);
+//  pubSensoresCor.publish(&dataSensoresCor);
 
   nh.spinOnce();
 }
