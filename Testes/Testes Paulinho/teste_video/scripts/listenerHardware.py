@@ -4,6 +4,7 @@ import rospy
 import cv2
 import message_filters
 from std_msgs.msg import Float64MultiArray
+from teste_video.msg import SonaresMsg
 
 def callbackRefle(data):
     if(len(data.data) > 0):
@@ -28,7 +29,7 @@ def callbackRefle(data):
                 show = cv2.rectangle(show, pt1, pt2, (0,0,0), -1)
 
         #show = cv2.putText(show, str(valorSensor),(w/2,h/2), cv2.FONT_HERSHEY_SIMPLEX, 1, cor)
-
+    
         cv2.imshow('cor', show)
         cv2.waitKey(1)
 
