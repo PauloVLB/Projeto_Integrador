@@ -4,11 +4,11 @@ import rospy
 import cv2
 import message_filters
 from std_msgs.msg import Float64MultiArray
-from teste_video.msg import SonaresMsg
+from teste_video.msg import SensoresDistanciaMsg, RefletanciaMsg
 
 def callbackRefle(data):
-    if(len(data.data) > 0):
-        valorSensor = data.data
+    if(len(data.refletancia) > 0):
+        valorSensor = data.refletancia
         rospy.loginfo('refletancia: ' + str(valorSensor))
         show = cv2.imread('/home/paulo/IFRN/branco.png')
         show = cv2.resize(show, (600, 150))
@@ -22,20 +22,20 @@ def callbackRefle(data):
             show = cv2.line(show, pt1, pt2, cor)
 
         for i in range(0, 4):
-            valorSensor = data.data[i]
+            #valorSensor = data.refle[i]
             if(valorSensor < 4):
                 pt1 = (i*w/4, 0)
                 pt2 = ((i+1)*w/4, h)
                 show = cv2.rectangle(show, pt1, pt2, (0,0,0), -1)
 
         #show = cv2.putText(show, str(valorSensor),(w/2,h/2), cv2.FONT_HERSHEY_SIMPLEX, 1, cor)
-    
+
         cv2.imshow('cor', show)
         cv2.waitKey(1)
 
 def callbackSonar(data):
-    if(len(data.data) > 0):
-        valorSensor = data.data[0]
+    if(len(data.sensoresDistancia) > 0):
+        valorSensor = data.sensoresDistancia[0]
         rospy.loginfo('sonar: ' + str(valorSensor))
 
         show = cv2.imread('/home/paulo/IFRN/branco.png')
@@ -60,12 +60,12 @@ def map(x, in_min, in_max, out_min, out_max):
 
 def listenerRefletancia():
     rospy.init_node('listenerHardware', anonymous=True)
-    subRefle = message_filters.Subscriber('refletancia', Float64MultiArray)
-    subRefle.registerCallback(callbackRefle)
+    #subRefle = message_filters.Subscriber('refletancia', RefletanciaMsg)
+    #subRefle.registerCallback(callbackRefle)
     #rospy.Subscriber('refletancia', Float64MultiArray, callbackRefle)
     #rospy.Subscriber('sonares', Float64MultiArray, callbackSonar)
-    #subSonar = message_filters.Subscriber('sonares', Float64MultiArray)
-    #subSonar.registerCallback(callbackSonar)
+    subSonar = message_filters.Subscriber('distancia', SensoresDistanciaMsg)
+    subSonar.registerCallback(callbackSonar)
 
     rospy.spin()
 

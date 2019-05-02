@@ -4,6 +4,7 @@ import rospy
 import message_filters
 from std_msgs.msg import Float64MultiArray
 from std_msgs.msg import Int32MultiArray
+from teste_video.msg import SonaresMsg, RefletanciaMsg
 
 
 
@@ -17,7 +18,7 @@ def refletanciaCb(data):
     else:
         dataMotores.data = [0, 0]
     pubMotores.publish(dataMotores)
-       
+
 
 def sonaresCb(data):
     rospy.loginfo('Sonares: ' + str(data.data))
@@ -30,15 +31,15 @@ def hardwareListener():
     '''
     subSensorCor = message_filters.Subscriber('cor', Float32MultiArray)
     subSensorCor.registerCallback(sensoresCorCb)
-    '''    
+    '''
     subRefle = message_filters.Subscriber('refletancia', Float64MultiArray)
     subRefle.registerCallback(refletanciaCb)
     rospy.spin()
     '''
-    subSonar = message_filters.Subscriber('sonares', Float32MultiArray)
+    subSonar = message_filters.Subscriber('distancia', Float32MultiArray)
     subRefle.registerCallback(sonaresCb)
     '''
-    
+
 '''
     while not rospy.is_shutdown():
         dataMotores = Int32MultiArray()
@@ -48,7 +49,7 @@ def hardwareListener():
         else:
                 dataMotores.data = [0, 0]
         pubMotores.publish(dataMotores)
-       
+
         rate.sleep()
 '''
       #rospy.spin()

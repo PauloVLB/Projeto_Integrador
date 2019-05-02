@@ -2,6 +2,8 @@
 #include <ros.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
+//#include "/home/paulo/IFRN/Projeto_Integrador/Testes/Testes Paulinho/teste_video/msg/RefletanciaMsg.msg"
+
 
 ros::NodeHandle nh;
 
@@ -23,7 +25,7 @@ ros::Subscriber<std_msgs::Int32MultiArray> sub("motores", &motoresCb);
 void setup() {
   dataRefletancia.data_length = 4;
   dataRefletancia.data = (float*)malloc(sizeof(float)*4);
-  
+ 
   dataSonares.data_length = 3;
   dataSonares.data =  (float*)malloc(sizeof(float)*3);
   /*

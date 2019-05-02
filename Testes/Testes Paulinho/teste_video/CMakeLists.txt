@@ -53,7 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    RefletanciaMsg.msg
-   SonaresMsg.msg
+   SensoresDistanciaMsg.msg
  )
 
 ## Generate services in the 'srv' folder
