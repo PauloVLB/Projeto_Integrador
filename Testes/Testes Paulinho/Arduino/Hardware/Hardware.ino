@@ -2,16 +2,16 @@
 #include <ros.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
-//#include "/home/paulo/IFRN/Projeto_Integrador/Testes/Testes Paulinho/teste_video/msg/RefletanciaMsg.msg"
-
+#include "/home/paulo/IFRN/Projeto_Integrador/Testes/Testes Paulinho/teste_video/msg/RefletanciaMsg.h"
 
 ros::NodeHandle nh;
 
 std_msgs::Float64MultiArray dataRefletancia;
+//RefletanciaMsg dataRefletancia;
 ros::Publisher pubRefletancia("refletancia", &dataRefletancia);
 
 std_msgs::Float64MultiArray dataSonares;
-ros::Publisher pubSonares("sonares", &dataSonares);
+ros::Publisher pubSonares("distancia", &dataSonares);
 /*
 std_msgs::Float64MultiArray dataSensoresCor;
 ros::Publisher pubSensoresCor("cor", &dataSensoresCor);
