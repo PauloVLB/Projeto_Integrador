@@ -22,7 +22,7 @@ def callbackRefle(data):
             show = cv2.line(show, pt1, pt2, cor)
 
         for i in range(0, 4):
-            #valorSensor = data.refletancia[i]
+            valorSensor = data.refletancia[i]
             if(valorSensor < 4):
                 pt1 = (i*w/4, 0)
                 pt2 = ((i+1)*w/4, h)

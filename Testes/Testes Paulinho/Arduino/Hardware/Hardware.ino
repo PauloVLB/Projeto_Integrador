@@ -1,16 +1,16 @@
 #include <robo_hardware2.h>
 #include <ros.h>
-#include <std_msgs/Float64MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
-#include "/home/paulo/IFRN/Projeto_Integrador/Testes/Testes Paulinho/teste_video/msg/RefletanciaMsg.h"
+#include <teste_video/RefletanciaMsg.h>
+#include <teste_video/SensoresDistanciaMsg.h>
 
 ros::NodeHandle nh;
 
-std_msgs::Float64MultiArray dataRefletancia;
-//RefletanciaMsg dataRefletancia;
+
+teste_video::RefletanciaMsg dataRefletancia;
 ros::Publisher pubRefletancia("refletancia", &dataRefletancia);
 
-std_msgs::Float64MultiArray dataSonares;
+teste_video::SensoresDistanciaMsg dataSonares;
 ros::Publisher pubSonares("distancia", &dataSonares);
 /*
 std_msgs::Float64MultiArray dataSensoresCor;
@@ -23,15 +23,6 @@ ros::Subscriber<std_msgs::Int32MultiArray> sub("motores", &motoresCb);
 
 
 void setup() {
-  dataRefletancia.data_length = 4;
-  dataRefletancia.data = (float*)malloc(sizeof(float)*4);
- 
-  dataSonares.data_length = 3;
-  dataSonares.data =  (float*)malloc(sizeof(float)*3);
-  /*
-  dataSensoresCor.data_length = 3;
-  dataSensoresCor.data = (float*)malloc(sizeof(float)*3);
-  */
   nh.initNode();
   nh.subscribe(sub);
 
@@ -44,16 +35,15 @@ void setup() {
   //robo.habilitaTCS34();
 }
 
-long t;
 void loop() {
-  dataRefletancia.data[0] = robo.lerSensorLinhaMaisEsqSemRuido();
-  dataRefletancia.data[1] = robo.lerSensorLinhaEsqSemRuido();
-  dataRefletancia.data[2] = robo.lerSensorLinhaDirSemRuido();
-  dataRefletancia.data[3] = robo.lerSensorLinhaMaisDirSemRuido();
+  dataRefletancia.refletancia[0] = robo.lerSensorLinhaMaisEsqSemRuido();
+  dataRefletancia.refletancia[1] = robo.lerSensorLinhaEsqSemRuido();
+  dataRefletancia.refletancia[2] = robo.lerSensorLinhaDirSemRuido();
+  dataRefletancia.refletancia[3] = robo.lerSensorLinhaMaisDirSemRuido();
 
-  dataSonares.data[0] = robo.lerSensorSonarFrontal();
-  dataSonares.data[1] = robo.lerSensorSonarDir();
-  dataSonares.data[2] = robo.lerSensorSonarEsq();
+  dataSonares.sensoresDistancia[0] = robo.lerSensorSonarFrontal();
+  dataSonares.sensoresDistancia[1] = robo.lerSensorSonarDir();
+  dataSonares.sensoresDistancia[2] = robo.lerSensorSonarEsq();
   /*
   dataSensoresCor.data[0] = robo.getHSVEsquerdo().h;
   dataSensoresCor.data[1] = robo.getHSVEsquerdo().s;
