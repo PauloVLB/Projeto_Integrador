@@ -4,58 +4,33 @@ import rospy
 import message_filters
 from std_msgs.msg import Float64MultiArray
 from std_msgs.msg import Int32MultiArray
-from teste_video.msg import SonaresMsg, RefletanciaMsg
+from teste_video.msg import SensoresDistanciaMsg, RefletanciaMsg
 
 
 
-def refletanciaCb(data):
+def callbackEstrategia(refle, dist):
     pubMotores = rospy.Publisher('motores', Int32MultiArray, queue_size=10)
     rate = rospy.Rate(20)
-    rospy.loginfo('Refle: ' + str(data.data))
     dataMotores = Int32MultiArray()
-    if(data.data[0] > 4):
+    if(refle.refletancia[0] > 4):
         dataMotores.data = [30, 30]
     else:
         dataMotores.data = [0, 0]
     pubMotores.publish(dataMotores)
 
 
-def sonaresCb(data):
-    rospy.loginfo('Sonares: ' + str(data.data))
-
-def sensoresCorCb(data):
-    rospy.loginfo('Cor: ' + str(data.data))
-
-def hardwareListener():
+def estrategia():
     rospy.init_node('estrategia', anonymous=True)
-    '''
-    subSensorCor = message_filters.Subscriber('cor', Float32MultiArray)
-    subSensorCor.registerCallback(sensoresCorCb)
-    '''
-    subRefle = message_filters.Subscriber('refletancia', Float64MultiArray)
-    subRefle.registerCallback(refletanciaCb)
+    subRefle = message_filters.Subscriber('refletancia', RefletanciaMsg)
+    subDistancia = message_filters.Subscriber('distancia', SensoresDistanciaMsg)
+
+    ts = message_filters.TimeSynchronizer([subRefle, subDistancia], 10)
+    ts.registerCallback(callbackEstrategia)
+
     rospy.spin()
-    '''
-    subSonar = message_filters.Subscriber('distancia', Float32MultiArray)
-    subRefle.registerCallback(sonaresCb)
-    '''
-
-'''
-    while not rospy.is_shutdown():
-        dataMotores = Int32MultiArray()
-
-        if(a > 4):
-                dataMotores.data = [50, 50]
-        else:
-                dataMotores.data = [0, 0]
-        pubMotores.publish(dataMotores)
-
-        rate.sleep()
-'''
-      #rospy.spin()
 
 if __name__ == "__main__":
 	try:
-		hardwareListener()
+	      estrategia()
 	except rospy.ROSInterruptException:
 		pass
