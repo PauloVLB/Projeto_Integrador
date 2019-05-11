@@ -23,6 +23,7 @@ ros::Subscriber<std_msgs::Int32MultiArray> sub("motores", &motoresCb);
 
 
 void setup() {
+  nh.getHardware()->setBaud(115200);
   nh.initNode();
   nh.subscribe(sub);
 

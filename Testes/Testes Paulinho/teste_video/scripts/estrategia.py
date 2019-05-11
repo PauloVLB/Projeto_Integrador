@@ -11,11 +11,21 @@ from teste_video.msg import SensoresDistanciaMsg, RefletanciaMsg
 def callbackEstrategia(refle, dist):
     pubMotores = rospy.Publisher('motores', Int32MultiArray, queue_size=10)
     rate = rospy.Rate(20)
+
+    maisEsq = refle.refletancia[0]
+    esq = refle.refletancia[1]
+    dir = refle.refletancia[2]
+    maisDir = refle.refletancia[3]
     dataMotores = Int32MultiArray()
-    if(refle.refletancia[0] > 4):
-        dataMotores.data = [30, 30]
-    else:
-        dataMotores.data = [0, 0]
+    if(esq > 4 and dir > 4 ) :
+        dataMotores.data = [25, 25]
+    elif (esq > 4 and dir < 4  ):
+        dataMotores.data = [25, -25]
+    elif (esq < 4 and dir > 4 ):
+        dataMotores.data = [-25,25]
+    elif (esq < 4 and dir < 4 ):
+        dataMotores.data = [25, 25]
+
     pubMotores.publish(dataMotores)
 
 
