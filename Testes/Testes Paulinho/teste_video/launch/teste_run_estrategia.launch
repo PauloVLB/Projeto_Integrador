@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="teste_video" type="arduino.py" name="arduino"/>
+	<node pkg="teste_video" type="estrategia.py" name="estrategia"/>
+</launch>

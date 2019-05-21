@@ -1,0 +1,4 @@
+<launch>
+	<node name="talkerCamera" pkg="teste_video" type="talkerImg.py"/>
+	<node name="listenerCirculos" pkg="teste_video" type="listenerCirculos.py"/>
+</launch>
