@@ -12,10 +12,15 @@ ros::Publisher pubRefletancia("refletancia", &dataRefletancia);
 
 teste_video::SensoresDistanciaMsg dataSonares;
 ros::Publisher pubSonares("distancia", &dataSonares);
+
 /*
 std_msgs::Float64MultiArray dataSensoresCor;
 ros::Publisher pubSensoresCor("cor", &dataSensoresCor);
 */
+
+teste_video::PosicaoMsg dataPosicao;
+ros::Publisher pubPosicao("posicao", &dataPosicao)
+
 void motoresCb(std_msgs::Int32MultiArray motores){
   robo.acionarMotores(motores.data[0], motores.data[1]);
 }
@@ -30,7 +35,7 @@ void setup() {
   nh.advertise(pubRefletancia);
   nh.advertise(pubSonares);
   //nh.advertise(pubSensoresCor);
-  
+
   robo.configurar(false);
 
   //robo.habilitaTCS34();
@@ -50,7 +55,7 @@ void loop() {
   dataSensoresCor.data[1] = robo.getHSVEsquerdo().s;
   dataSensoresCor.data[2] = robo.getHSVEsquerdo().v;
   */
-  
+
   pubRefletancia.publish(&dataRefletancia);
   pubSonares.publish(&dataSonares);
 //  pubSensoresCor.publish(&dataSensoresCor);

@@ -54,6 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    RefletanciaMsg.msg
    SensoresDistanciaMsg.msg
+   Posicao.msg
  )
 
 ## Generate services in the 'srv' folder
