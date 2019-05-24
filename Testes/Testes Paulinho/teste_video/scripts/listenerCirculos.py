@@ -45,10 +45,10 @@ def callback(data):
 	ponte = CvBridge()
 	imgCV = ponte.imgmsg_to_cv2(data,"bgr8")
 
-	img = acharCirculos(imgCV)
+	#imgCV = acharCirculos(imgCV)
 
-	#cv2.namedWindow('LISTENER_1', cv2.WINDOW_NORMAL)
-	cv2.imshow('LISTENER_1', img)
+	cv2.namedWindow('LISTENER_1', cv2.WINDOW_NORMAL)
+	cv2.imshow('LISTENER_1', imgCV)
 	cv2.waitKey(1)
 
 def listenerImg():
