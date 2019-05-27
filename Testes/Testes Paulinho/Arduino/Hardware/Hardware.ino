@@ -17,20 +17,27 @@ ros::Publisher pubSonares("distancia", &dataSonares);
 std_msgs::Float64MultiArray dataSensoresCor;
 ros::Publisher pubSensoresCor("cor", &dataSensoresCor);
 */
-
+/*
 teste_video::PosicaoMsg dataPosicao;
 ros::Publisher pubPosicao("posicao", &dataPosicao)
-
+*/
 void motoresCb(std_msgs::Int32MultiArray motores){
   robo.acionarMotores(motores.data[0], motores.data[1]);
 }
-ros::Subscriber<std_msgs::Int32MultiArray> sub("motores", &motoresCb);
+ros::Subscriber<std_msgs::Int32MultiArray> subMotores("motores", &motoresCb);
+
+void garraCb(std_msgs::Int32MultiArray garra){
+  robo.acionarServoGarra1(garra.data[0]);
+  robo.acionarServoGarra2(garra.data[1]);
+}
+ros::Subscriber<std_msgs::Int32MultiArray> subGarra("garra", &garraCb);
 
 
 void setup() {
   nh.getHardware()->setBaud(115200);
   nh.initNode();
-  nh.subscribe(sub);
+  nh.subscribe(subMotores);
+  nh.subscribe(subGarra);
 
   nh.advertise(pubRefletancia);
   nh.advertise(pubSonares);

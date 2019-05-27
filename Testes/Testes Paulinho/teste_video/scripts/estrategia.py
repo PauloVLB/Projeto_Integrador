@@ -11,7 +11,7 @@ import time
 
 # publishers
 pubMotores = rospy.Publisher('motores', Int32MultiArray, queue_size=10)
-pubGarras = rospy.Publisher('garras', Int32MultiArray, queue_size=10)
+pubGarras = rospy.Publisher('garra', Int32MultiArray, queue_size=10)
 
 
 def callbackEstrategia(refle, dist, posicao):
