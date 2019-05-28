@@ -10,7 +10,7 @@ from teste_video.msg import BoolStamped
 def circular(img, circles):
 	if (circles is not None):
 		circles = np.uint16(np.around(circles))
-		circulo.existe.data = True
+	#	circulo.existe.data = True
 		for i in circles[0, :]:
 			x, y, r = i[0], i[1], i[2]
 
@@ -24,10 +24,10 @@ def circular(img, circles):
 			arrayCoordenadas.data[1] = y
 			arrayCoordenadas.data[2] = r
 
-			pub.publish(arrayCoordenadas)
-	else:
-		circulo.existe.data = False
-	pub2.publish(circulo)
+			#pub.publish(arrayCoordenadas)
+	#else:
+	#	circulo.existe.data = False
+	#pub2.publish(circulo)
 	return img
 
 def acharCirculos(img):
@@ -61,8 +61,8 @@ def listenerImg():
 	rospy.spin()
 
 if __name__ == "__main__":
-	pub = rospy.Publisher('coordenadas_circulos', Float64MultiArray, queue_size=10)
-	pub2 = rospy.Publisher('tem_circulos', BoolStamped, queue_size=10)
+	#pub = rospy.Publisher('coordenadas_circulos', Float64MultiArray, queue_size=10)
+	#pub2 = rospy.Publisher('tem_circulos', BoolStamped, queue_size=10)
 
 	circulo = BoolStamped()
 	arrayCoordenadas = Float64MultiArray()
