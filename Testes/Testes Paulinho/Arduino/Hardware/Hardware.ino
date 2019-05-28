@@ -43,7 +43,7 @@ void setup() {
   nh.advertise(pubSonares);
   //nh.advertise(pubSensoresCor);
 
-  robo.configurar(false);
+  robo.configurar(true);
 
   //robo.habilitaTCS34();
 }

@@ -54,6 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    RefletanciaMsg.msg
    SensoresDistanciaMsg.msg
+   BoolStamped.msg
    Posicao.msg
  )
 

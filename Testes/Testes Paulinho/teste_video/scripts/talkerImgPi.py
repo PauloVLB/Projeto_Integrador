@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	try:
 		rospy.init_node('talkerImgPi', anonymous=True)
 		pub = rospy.Publisher('topico_img', Image, queue_size=10)
-		rate = rospy.Rate(10)
+		rate = rospy.Rate(20)
 		rospy.Subscriber('/raspicam_node/image/compressed', CompressedImage, talkerImg)
 		rospy.spin()
 	except rospy.ROSInterruptException:
