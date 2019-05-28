@@ -22,7 +22,6 @@ def arduinoCamCb(refle, dist, circulo):
     distEsq = dist.sensoresDistancia[1]
     distDir = dist.sensoresDistancia[2]
 
-
     if circulo.existe.data:
         dataMotores.data = [25,-25]
         dataGarra.data = [90, 90]
@@ -37,10 +36,7 @@ def arduino_cam():
     rospy.init_node('arduino_cam', anonymous=True)
     subRefle = message_filters.Subscriber('refletancia', RefletanciaMsg)
     subDistancia = message_filters.Subscriber('distancia', SensoresDistanciaMsg)
-    #subCam = message_filters.Subscriber('topico_img', Image)
     subCam = message_filters.Subscriber('tem_circulos', BoolStamped)
-
-    #rate = rospy.Rate(20)
 
     ts = message_filters.TimeSynchronizer([subRefle, subDistancia, subCam], 20)
 
